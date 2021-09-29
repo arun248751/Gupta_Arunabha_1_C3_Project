@@ -2,6 +2,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import java.time.LocalTime;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -64,4 +68,27 @@ class RestaurantTest {
                 ()->restaurant.removeFromMenu("French fries"));
     }
     //<<<<<<<<<<<<<<<<<<<<<<<MENU>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+
+    //>>>>>>>>>>>>>>>>>>>>>>>>>>>Order Value<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+    @Test
+    public void total_price_of_the_items_selected_from_the_cart_should_be_388(){
+        Restaurant restaurant = createRestaurant();
+        List<Item> items = restaurant.getMenu();
+        List<String> menuItems = items.stream().map(Item::getName).collect(Collectors.toList());
+        assertEquals(388, restaurant.getOrderValue(menuItems));
+
+    }
+
+    @Test
+    public void total_price_of_the_items_when_unavailable_item_selected_from_the_cart_should_throw_exception(){
+        Restaurant restaurant = createRestaurant();
+        List<String> menuItems = Arrays.asList("Sweet corn soup", "Popcorn");
+        assertThrows(itemNotFoundException.class, () -> restaurant.getOrderValue(menuItems));
+
+    }
+
+    //<<<<<<<<<<<<<<<<<<<<<<<Order Value>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
 }
