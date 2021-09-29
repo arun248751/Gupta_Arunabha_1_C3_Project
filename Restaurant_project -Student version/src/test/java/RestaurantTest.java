@@ -73,7 +73,7 @@ class RestaurantTest {
     //>>>>>>>>>>>>>>>>>>>>>>>>>>>Order Value<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
     @Test
-    public void total_price_of_the_items_selected_from_the_cart_should_be_388(){
+    public void total_price_of_the_items_selected_from_the_cart_should_be_388() throws itemNotFoundException {
         Restaurant restaurant = createRestaurant();
         List<Item> items = restaurant.getMenu();
         List<String> menuItems = items.stream().map(Item::getName).collect(Collectors.toList());
